@@ -1,6 +1,8 @@
 #include "car.hpp"
 
 #include <iostream>
+#include <sstream>
+#include "logger.hpp"
 
 Car::Car(std::string make, std::string model, int year, double price)
     : make(make), model(model), year(year), price(price) {
@@ -10,8 +12,11 @@ Car::Car(std::string make, std::string model, int year, double price)
 }
 
 void Car::setPrice(double price) {
-    printPriceChange(this->price, price);
+    std::ostringstream oss;
+    oss << "Changing price from " << this->price << " to " << price << "\n";
+    Logger::logMessage(oss.str());
     this->price = price;
+    return;
 }
 
 std::string Car::getMake() const { return make; }
@@ -23,6 +28,3 @@ void Car::displayInfo() const {
     std::cout << year << " " << make << " " << model << " - $" << price << "\n";
 }
 
-void Car::printPriceChange(double from, double to) const {
-    std::cout << "Changing price from " << from << " to " << to << "\n";
-}
